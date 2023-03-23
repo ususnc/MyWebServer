@@ -52,7 +52,9 @@ void Utils::addsig(int sig, void(handler)(int), bool restart)
     if (restart)
         sa.sa_flags |= SA_RESTART;
     sigfillset(&sa.sa_mask);
-    assert(sigaction(sig, &sa, NULL) != -1);
+    // assert(sigaction(sig, &sa, NULL) != -1);
+    sigaction(sig, &sa, NULL);
+
 }
 
 void Utils::show_error(int connfd, const char *info)

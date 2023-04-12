@@ -349,7 +349,8 @@ http_conn::HTTP_CODE http_conn::process_read()
     HTTP_CODE ret = NO_REQUEST;
     char *text = 0;
 
-    while ((m_check_state == CHECK_STATE_CONTENT && line_status == LINE_OK) || ((line_status = parse_line()) == LINE_OK))
+    while ((m_check_state == CHECK_STATE_CONTENT && line_status == LINE_OK) 
+           || ((line_status = parse_line()) == LINE_OK))
     {
         text = get_line();
         m_start_line = m_checked_idx;
@@ -502,9 +503,10 @@ http_conn::HTTP_CODE http_conn::do_request()
 
         free(m_url_real);
     }
-    else
+    else {  // other files, e.g. xxx.mp4
         strncpy(m_real_file + len, m_url, FILENAME_LEN - len - 1);
-
+    }
+        
     if (stat(m_real_file, &m_file_stat) < 0)
         return NO_RESOURCE;
 
@@ -687,6 +689,7 @@ bool http_conn::process_write(HTTP_CODE ret)
     default:
         return false;
     }
+
     m_iv[0].iov_base = m_write_buf;
     m_iv[0].iov_len = m_write_idx;
     m_iv_count = 1;

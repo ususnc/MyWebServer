@@ -384,8 +384,8 @@ void WebServer::eventLoop()
             if (sockfd == m_listenfd)
             {
                 bool flag = dealclinetdata();
-                if (false == flag)
-                    continue;
+                // if (false == flag)
+                //     continue;
             }
             else if (events[i].events & (EPOLLRDHUP | EPOLLHUP | EPOLLERR))
             {
